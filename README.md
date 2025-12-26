@@ -78,6 +78,52 @@ constellation.connect("mul", "add", position=0)
 print(constellation.visualize_topology())
 ```
 
+#### 3.5. Neural Network Operad Gadgets
+
+Neural network components as typed operadic agents with type signatures, shape constraints, and behavior traits. Build type-safe, composable neural architectures.
+
+```python
+from operag.nn import (
+    # Activations
+    ReLU, Tanh, Sigmoid, Softmax,
+    # Loss functions
+    MSELoss, CrossEntropyLoss,
+    # Layers
+    Identity, Reshape, Flatten,
+    # Containers
+    Sequential, Parallel, Add
+)
+import numpy as np
+
+# Build a simple neural network as operadic composition
+network = Sequential(
+    ReLU("layer1"),
+    Tanh("layer2"),
+    name="mlp"
+)
+
+# Forward pass with type checking
+x = np.array([1.0, 2.0, 3.0])
+output = network(x)
+
+# Residual connection using operad gadgets
+identity = Identity("skip")
+transform = Tanh("transform")
+add_layer = Add("residual")
+
+residual = add_layer(identity(x), transform(x))  # x + tanh(x)
+
+# Loss function as terminal operad
+mse = MSELoss("mse")
+predictions = np.array([1.0, 2.0, 3.0])
+targets = np.array([1.1, 2.0, 2.9])
+loss = mse(predictions, targets)
+
+# Check type signatures
+print(f"Network type: {network.type_signature}")
+print(f"Behavior: differentiable={network.behavior_traits['differentiable']}")
+```
+
 #### 4. Topological Resonance — Computation as Pattern Matching
 
 The core concept: **computation == topological resonance**. Compatible structures resonate and interact, performing computation through topological pattern matching.
