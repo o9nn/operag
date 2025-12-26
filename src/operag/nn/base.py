@@ -41,7 +41,10 @@ class TypeSignature:
         return True
     
     def __repr__(self) -> str:
-        shape_str = f"{self.input_shape} → {self.output_shape}" if self.input_shape else "dynamic"
+        if self.input_shape or self.output_shape:
+            shape_str = f"{self.input_shape} → {self.output_shape}"
+        else:
+            shape_str = "dynamic"
         return f"TypeSignature({self.input_type} → {self.output_type}, {shape_str}, {self.dtype})"
 
 

@@ -91,7 +91,8 @@ class Reshape(NeuralModule):
                 dtype="float32"
             ),
             shape_constraint=ShapeConstraint(
-                constraints=[f"total_size == {np.prod([abs(d) for d in target_shape if d != -1])}"]
+                # Don't validate size for dynamic shapes with -1
+                constraints=["total_size preserved"] if -1 not in target_shape else None
             ),
             behavior_traits={
                 "differentiable": True,

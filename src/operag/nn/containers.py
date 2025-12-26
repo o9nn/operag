@@ -48,12 +48,16 @@ class Sequential(NeuralModule):
         
         # Create composed transform
         def sequential_transform(*inputs):
-            result = inputs
-            for module in self.modules:
-                if isinstance(result, tuple):
-                    result = module(*result)
-                else:
-                    result = module(result)
+            # Handle first module
+            if len(inputs) == 1:
+                result = self.modules[0](inputs[0])
+            else:
+                result = self.modules[0](*inputs)
+            
+            # Apply remaining modules
+            for module in self.modules[1:]:
+                result = module(result)
+            
             return result
         
         # Use first module's arity and last module's output type

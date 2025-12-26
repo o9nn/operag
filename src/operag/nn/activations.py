@@ -173,7 +173,7 @@ class Softmax(NeuralModule):
     - Differentiable
     - Shape-preserving
     - Output: probability distribution (sums to 1)
-    - Requires minimum rank 2
+    - Works on 1D vectors or higher-dimensional tensors
     """
     
     def __init__(self, axis: int = -1, name: str = "softmax"):
@@ -200,7 +200,7 @@ class Softmax(NeuralModule):
                 dtype="float32"
             ),
             shape_constraint=ShapeConstraint(
-                min_rank=2  # Softmax typically requires at least 2D
+                min_rank=1  # Can work on 1D vectors
             ),
             behavior_traits={
                 "differentiable": True,
