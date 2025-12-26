@@ -9,6 +9,7 @@ Key Components:
 - Hypergraph Tensor Embeddings: Multi-relational data representation
 - Operad Gadget Constellations: Composable computational structures
 - Topological Resonance: Computation through topological pattern matching
+- Neural Network Operad Gadgets: Neural network components as typed operadic agents
 """
 
 __version__ = "0.1.0"
@@ -18,6 +19,9 @@ from .hypergraph.tensor_embeddings import HypergraphTensorEmbedding
 from .operad.gadget_constellation import OperadGadget, GadgetConstellation
 from .resonance.topological_matcher import TopologicalMatcher, topological_resonance
 
+# Import nn module namespace
+from . import nn
+
 __all__ = [
     "PrimeFactorMembrane",
     "HypergraphTensorEmbedding",
@@ -25,4 +29,5 @@ __all__ = [
     "GadgetConstellation",
     "TopologicalMatcher",
     "topological_resonance",
+    "nn",
 ]
