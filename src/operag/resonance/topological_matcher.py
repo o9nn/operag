@@ -105,7 +105,10 @@ class TopologicalMatcher:
         
         # Compare structural properties
         gadget_ratio = min(sig1["num_gadgets"], sig2["num_gadgets"]) / max(sig1["num_gadgets"], sig2["num_gadgets"])
-        conn_ratio = min(sig1["num_connections"], sig2["num_connections"]) / max(sig1["num_connections"], sig2["num_connections"])
+        
+        # Handle division by zero for connections
+        max_conn = max(sig1["num_connections"], sig2["num_connections"])
+        conn_ratio = min(sig1["num_connections"], sig2["num_connections"]) / max_conn if max_conn > 0 else 1.0
         
         # Compare gadget type overlap
         types1 = sig1["gadget_types"]
